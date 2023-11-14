@@ -1,33 +1,43 @@
-﻿using Microsoft.VisualBasic;
+﻿using System.Globalization;
+using Microsoft.VisualBasic;
 
 namespace consolidation_csharp_lesson_5;
 public static class Challenges
 {
     public static int[] GetNumbersOver50V1(int[] numbers)
     {
-        var result = numbers.Where(num => num > 50).ToArray();
-
-        Console.WriteLine("Original numbers: " + string.Join(", ", numbers));
-        Console.WriteLine("Numbers over 50: " + string.Join(", ", result));
-        return result;
-
+        var newList = new List<int>();
+        foreach (var num in numbers)
+        {
+            if (num > 50)
+            {
+                newList.Add(num);
+            }
+        }
+        return newList.ToArray();
     }
 
     public static int[] GetNumbersOver50V2(int[] numbers)
     {
-        IEnumerable<int> GetNumbersOver50V1(this IEnumerable<int>numbers);
-        return 
-        
+        return numbers.Where(nums => nums > 50).ToArray<int>();
     }
 
     public static string[] GetWordsUnder5CharacterV1(string[] words)
     {
-        throw new NotImplementedException();
+        var newList = new List<string>();
+        foreach (var word in words)
+        {
+            if (word.Length > 5)
+            {
+                newList.Add(word);
+            }
+        }
+        return newList.ToArray();
     }
-
     public static string[] GetWordsUnder5CharacterV2(string[] words)
     {
-        throw new NotImplementedException();
+        var wordArray = words.Where(word => word.Length < 5).ToArray();
+        return wordArray;
     }
 
     public static string[] GetNamesV1(List<People> people)
