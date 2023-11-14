@@ -5,12 +5,19 @@ public static class Challenges
 {
     public static int[] GetNumbersOver50V1(int[] numbers)
     {
-        throw new NotImplementedException();
+        var result = numbers.Where(num => num > 50).ToArray();
+
+        Console.WriteLine("Original numbers: " + string.Join(", ", numbers));
+        Console.WriteLine("Numbers over 50: " + string.Join(", ", result));
+        return result;
+
     }
 
     public static int[] GetNumbersOver50V2(int[] numbers)
     {
-        throw new NotImplementedException();
+        IEnumerable<int> GetNumbersOver50V1(this IEnumerable<int>numbers);
+        return 
+        
     }
 
     public static string[] GetWordsUnder5CharacterV1(string[] words)
