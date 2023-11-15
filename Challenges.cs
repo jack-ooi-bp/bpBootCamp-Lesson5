@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Text;
 using FluentAssertions;
 using Microsoft.VisualBasic;
 using Xunit.Sdk;
@@ -92,56 +93,100 @@ public static class Challenges
 
     public static string[] StringSplit(string stringToSplit)
     {
-        // if (stringToSplit == null)
-        // {
-        //     throw new ArgumentNullException(nameof(stringToSplit));
-        // }
-
-        var substrings = new List<string>();
-        var startIndex = 0;
-
-        while (startIndex <= substrings.Count)
         {
-            var spaceIndex = stringToSplit.IndexOf(' ', startIndex);
-
-            if (spaceIndex == -1)
+            if (stringToSplit == null)
             {
-                spaceIndex = stringToSplit.Length;
+                throw new ArgumentNullException(nameof(stringToSplit));
             }
 
-            var word = stringToSplit.Substring(startIndex, spaceIndex - startIndex);
+            int spaceCount = 0;
+            foreach (char c in stringToSplit)
+            {
+                if (char.IsWhiteSpace(c))
+                {
+                    spaceCount++;
+                }
+            }
 
-            substrings.Add(word);
+            string[] words = new string[spaceCount + 1];
 
-            startIndex = spaceIndex + 1;
+            int startIndex = 0;
+            int wordIndex = 0;
+
+            for (int i = 0; i < stringToSplit.Length; i++)
+            {
+                if (char.IsWhiteSpace(stringToSplit[i]))
+                {
+                    words[wordIndex++] = stringToSplit.Substring(startIndex, i - startIndex);
+                    startIndex = i + 1;
+                }
+            }
+
+            words[wordIndex] = stringToSplit.Substring(startIndex);
+
+            return words;
         }
-        return substrings.ToArray();
     }
 
     public static string StringJoin(string separator, string[] stringsToJoin)
     {
-        throw new NotImplementedException();
-        // if (stringsToJoin == null)
-        // {
-        //     throw new ArgumentNullException(nameof(stringsToJoin));
-        // }
+        // throw new NotImplementedException();
+        if (separator == null)
+        {
+            throw new ArgumentNullException(nameof(stringsToJoin));
+        }
 
-        // var substrings = new List<string>();
-        // int startIndex = 0;
+        if (stringsToJoin == null)
+        {
+            throw new ArgumentNullException(nameof(stringsToJoin));
+        }
 
-        // while (startIndex < substrings.Count)
-        // {
+        if (stringsToJoin.Length == 0)
+        {
+            return "";
+        }
 
-        // }
+        string joinedString = stringsToJoin[0];
+
+        for (int i = 1; i < stringsToJoin.Length; i++)
+        {
+            joinedString += separator + stringsToJoin[i];
+        }
+
+        return joinedString;
     }
 
     public static List<T> ListReverse<T>(List<T> list)
     {
-        throw new NotImplementedException();
+        if (list == null)
+        {
+            throw new ArgumentNullException(nameof(list));
+        }
+
+        List<T> reversedList = new List<T>(list.Count);
+
+        for (int i = list.Count - 1; i >= 0; i--)
+        {
+            reversedList.Add(list[i]);
+        }
+
+        return reversedList;
     }
 
     public static HashSet<T> SetIntersection<T>(HashSet<T> items1, HashSet<T> items2)
     {
-        throw new NotImplementedException();
+        if (items1 == null || items2 == null)
+        {
+            throw new ArgumentNullException("Both sets must contain value");
+        }
+
+        HashSet<T> intersection = new HashSet<T>(items1);
+
+        foreach (T item in items2)
+        {
+            intersection.Add(item);
+        }
+
+        return intersection;
     }
 }
