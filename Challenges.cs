@@ -32,7 +32,7 @@ public static class Challenges
         var newList = new List<string>();
         foreach (var word in words)
         {
-            if (word.Length > 5)
+            if (word.Length < 5)
             {
                 newList.Add(word);
             }
@@ -92,23 +92,47 @@ public static class Challenges
 
     public static string[] StringSplit(string stringToSplit)
     {
-        throw new NotImplementedException();
+        // if (stringToSplit == null)
+        // {
+        //     throw new ArgumentNullException(nameof(stringToSplit));
+        // }
+
+        var substrings = new List<string>();
+        var startIndex = 0;
+
+        while (startIndex <= substrings.Count)
+        {
+            var spaceIndex = stringToSplit.IndexOf(' ', startIndex);
+
+            if (spaceIndex == -1)
+            {
+                spaceIndex = stringToSplit.Length;
+            }
+
+            var word = stringToSplit.Substring(startIndex, spaceIndex - startIndex);
+
+            substrings.Add(word);
+
+            startIndex = spaceIndex + 1;
+        }
+        return substrings.ToArray();
     }
 
     public static string StringJoin(string separator, string[] stringsToJoin)
     {
-        if (stringsToJoin == null)
-        {
-            throw new ArgumentNullException(nameof(stringsToJoin));
-        }
+        throw new NotImplementedException();
+        // if (stringsToJoin == null)
+        // {
+        //     throw new ArgumentNullException(nameof(stringsToJoin));
+        // }
 
-        var substrings = new List<string>();
-        int startIndex = 0;
+        // var substrings = new List<string>();
+        // int startIndex = 0;
 
-        while (startIndex < substrings.Count)
-        {
+        // while (startIndex < substrings.Count)
+        // {
 
-        }
+        // }
     }
 
     public static List<T> ListReverse<T>(List<T> list)
